@@ -131,7 +131,7 @@ async function validateCohortInfo(req,res, next) {
         next();
     }
     else {
-        res.status(400).json({"errorMessage":"name is reauired required"});
+        res.status(400).json({"errorMessage":"name is required"});
     }
 }
 

@@ -3,11 +3,15 @@ const server = express();
 
 
 const cohortRouter = require('./routers/cohortRouter.js');
+const studentRouter = require('./routers/studentRouter.js')
 
 server.use(express.json());
 server.use(logger);
 
 server.use('/api/cohorts', cohortRouter);
+server.use('/api/students', studentRouter);
+
+
 
 
 /**************************************/
