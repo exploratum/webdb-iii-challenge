@@ -4,32 +4,30 @@ const knexConfig = require('../knexfile');
 const db = knex(knexConfig.development);
 
 function find() {
-    return db('cohorts');
+    return db('students');
 }
 
 function findById(id) {
-    return db('cohorts')
-    .where({id})
-    .first();
+
+    return db.select('students.id', 'students.name', 'cohorts.name AS cohort')
+    .from('students')
+    .leftJoin('cohorts', 'cohorts.id', 'students.cohort_id')
+    .where({'students.id': id})
+
 }
 
-function findStudentsByCohortId(cohort_id) {
-    return db('students')
-        .where({cohort_id});
-}
-
-function insert(cohort) {
-    return db('cohorts').insert(cohort);
+function insert(student) {
+    return db('students').insert(student);
 }
 
 function update(id, changes) {
-    return db('cohorts')
+    return db('students')
     .where({id})
     .update(changes)
 }
 
 function remove(id) {
-    return db('cohorts')
+    return db('students')
     .where({id})
     .del();
 }
@@ -41,5 +39,4 @@ module.exports = {
     insert,
     update,
     remove,
-    findStudentsByCohortId
 };
